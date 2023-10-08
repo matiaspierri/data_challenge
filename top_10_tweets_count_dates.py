@@ -32,3 +32,12 @@ def find_top_10_tweets_count_dates(file_path: str):
     
     # Extracting username information
     df['username'] = df['user'].apply(lambda x: x['username'])
+
+    # Counting tweets aggregated by date + username
+    top_users = df.groupby('date')['username'].value_counts().reset_index(name='record_count')
+    
+    # Sort the DataFrame by 'record_count' in descending order 
+    top_users = top_users.sort_values(by=['date', 'record_count'], ascending=[True, False])
+
+    # Top 10 dates and username with most tweets by that given date
+    top_users.groupby('date').max().reset_index().head(10)
