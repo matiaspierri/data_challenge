@@ -12,7 +12,7 @@ def extract_emojis(text):
 
 
 @profile
-def find_top_10_emojis_count(file_path: str):
+def find_top_10_emojis_count(file_path: str) -> List[Tuple[str, int]]:
 
     # Create a DataFrame from the parsed data
     df = load_JSON_into_df(file_path)

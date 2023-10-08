@@ -5,7 +5,7 @@ from aux import load_JSON_into_df
 from memory_profiler import profile
 
 @profile
-def find_top_10_tweets_count_dates(file_path: str):
+def find_top_10_tweets_count_dates(file_path: str) -> List[Tuple[str, int]]:
     
     # Create a DataFrame from the parsed data
     df = load_JSON_into_df(file_path)
