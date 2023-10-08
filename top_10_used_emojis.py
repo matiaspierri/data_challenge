@@ -9,3 +9,6 @@ from memory_profiler import profile
 def extract_emojis(text):
     return ''.join(char for char in text if emoji.is_emoji(char))
 
+
+# Apply the extract_emojis function to the "content" column
+df['emojis'] = df['content'].apply(extract_emojis)
