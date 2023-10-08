@@ -1,6 +1,9 @@
 import pandas as pd
 import json
+from memory_profiler import profile
 
+
+@profile
 def find_top_10_tweets_count_dates(file_path: str):
     # Specify the file path
     file_path = "farmers-protest-tweets-2021-2-4.json"
