@@ -44,3 +44,6 @@ def find_top_10_tweets_count_dates(file_path: str):
 
     # Top 10 dates and username with most tweets by that given date
     top_users.groupby('date').max().reset_index().head(10)
+
+if __name__ == "__main__":
+    find_top_10_tweets_count_dates("farmers-protest-tweets-2021-2-4.json")
