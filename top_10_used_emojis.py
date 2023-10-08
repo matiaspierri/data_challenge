@@ -4,6 +4,7 @@ import cProfile
 import emoji
 from aux import load_JSON_into_df
 from memory_profiler import profile
+from typing import List, Tuple
 
 
 # Define a function to extract emojis from a string using the emoji module

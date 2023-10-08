@@ -1,18 +1,22 @@
 import pandas as pd
 import json
 import cProfile
+import datetime
 from aux import load_JSON_into_df
 from memory_profiler import profile
+from typing import List, Tuple
 
 @profile
-def find_top_10_tweets_count_dates(file_path: str) -> List[Tuple[str, int]]:
+def find_top_10_tweets_count_dates(file_path: str) -> List[Tuple[datetime.date, str]]:
     
     # Create a DataFrame from the parsed data
     df = load_JSON_into_df(file_path)
 
+
     # Removing hours, minutes and seconds
     df['date'] = pd.to_datetime(df['date']).dt.strftime('%m-%d-%Y')
-    
+    df['date'] = pd.to_datetime(df['date']).dt.date    
+
     # Extracting username information
     df['username'] = df['user'].apply(lambda x: x['username'])
 

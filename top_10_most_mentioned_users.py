@@ -3,9 +3,10 @@ import json
 import cProfile
 from aux import load_JSON_into_df
 from memory_profiler import profile
+from typing import List, Tuple
 
 @profile
-def find_top_10_most_mentioned_users(file_path: str):
+def find_top_10_most_mentioned_users(file_path: str) -> List[Tuple[str, int]]:
 
     # Create a DataFrame from the parsed data
     df = load_JSON_into_df(file_path)
