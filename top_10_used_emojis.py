@@ -4,6 +4,7 @@ import cProfile
 import emoji
 from aux import load_JSON_into_df
 from memory_profiler import profile
+from typing import List, Tuple
 
 
 # Define a function to extract emojis from a string using the emoji module
@@ -12,7 +13,7 @@ def extract_emojis(text):
 
 
 @profile
-def find_top_10_emojis_count(file_path: str):
+def find_top_10_emojis_count(file_path: str) -> List[Tuple[str, int]]:
 
     # Create a DataFrame from the parsed data
     df = load_JSON_into_df(file_path)
