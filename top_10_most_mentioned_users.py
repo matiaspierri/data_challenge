@@ -52,3 +52,17 @@ def find_top_10_most_mentioned_users(file_path: str):
 
     # Keep only top 10
     return tuple(sorted_username_tuples[:10])
+
+if __name__ == "__main__":
+    # Create a cProfile object
+    profiler = cProfile.Profile()
+    
+    # Run the function within the profiler
+    profiler.enable()
+    top_10_mentioned_users = find_top_10_most_mentioned_users("farmers-protest-tweets-2021-2-4.json")
+    profiler.disable()
+    
+    # Print the profiling results
+    profiler.print_stats(sort='cumulative')
+
+    print(top_10_mentioned_users)
