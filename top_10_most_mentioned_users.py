@@ -42,3 +42,9 @@ for username in username_mentioned_plain_string.split():
         username_mention_count[username] += 1
     else:
         username_mention_count[username] = 1
+
+# Transform the dictionary into a list of tuples, ordered by descending count
+sorted_username_tuples = sorted(username_mention_count.items(), key=lambda x: x[1], reverse=True)
+
+# Keep only top 10
+sorted_username_tuples[:10]
