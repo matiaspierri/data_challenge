@@ -7,8 +7,6 @@ from memory_profiler import profile
 @profile
 def find_top_10_most_mentioned_users(file_path: str):
 
-    
-
     # Create a DataFrame from the parsed data
     df = load_JSON_into_df(file_path)
 
@@ -45,6 +43,6 @@ if __name__ == "__main__":
     profiler.disable()
     
     # Print the profiling results
-    profiler.print_stats(sort='cumulative')
+    #profiler.print_stats(sort='cumulative')
 
     print(top_10_mentioned_users)
