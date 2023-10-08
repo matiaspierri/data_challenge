@@ -1,26 +1,34 @@
 import pandas as pd
 import json
 
-# Specify the file path
-file_path = "farmers-protest-tweets-2021-2-4.json"
+def find_top_10_tweets_count_dates(file_path: str):
+    # Specify the file path
+    file_path = "farmers-protest-tweets-2021-2-4.json"
 
-data= []
-invalid_rows= []
+    data= []
+    invalid_rows= []
 
-missing_rows = 0
+    missing_rows = 0
 
-# Try to read the JSON file
-with open(file_path, 'r', encoding='utf-8') as file:
-    # Read and parse each line separately
-    for row in file:
-        try:
-            jsonparse = json.loads(row)
-            data.append(jsonparse)
-        except Exception as e:
-            missing_rows +=1
-            invalid_rows.append(row)
+    # Try to read the JSON file
+    with open(file_path, 'r', encoding='utf-8') as file:
+        # Read and parse each line separately
+        for row in file:
+            try:
+                jsonparse = json.loads(row)
+                data.append(jsonparse)
+            except Exception as e:
+                missing_rows +=1
+                invalid_rows.append(row)
 
-print(f'Missing rows: {missing_rows}')
-print(f'Invalid rows: {invalid_rows}')
-# Create a DataFrame from the parsed data
-df = pd.DataFrame(data)
+    print(f'Missing rows: {missing_rows}')
+    print(f'Invalid rows: {invalid_rows}')
+
+    # Create a DataFrame from the parsed data
+    df = pd.DataFrame(data)
+
+    # Removing hours, minutes and seconds
+    df['date'] = pd.to_datetime(df['date']).dt.strftime('%m-%d-%Y')
+    
+    # Extracting username information
+    df['username'] = df['user'].apply(lambda x: x['username'])
