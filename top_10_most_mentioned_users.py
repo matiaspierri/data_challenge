@@ -26,3 +26,10 @@ print(f'Invalid rows: {invalid_rows}')
 
 # Create a DataFrame from the parsed data
 df = pd.DataFrame(data)
+
+
+# Drop rows with None or NaN values in the "mentionedUsers" column
+# We only want to keep users that were mentioned
+df.dropna(subset=['mentionedUsers'], inplace=True)
+
+df['usernameMentionedList'] = df['mentionedUsers'].apply(lambda user_list: [user['username'] for user in user_list if 'username' in user])
