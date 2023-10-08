@@ -3,9 +3,7 @@ import json
 import cProfile
 from memory_profiler import profile
 
-@profile
-def find_top_10_most_mentioned_users(file_path: str):
-
+def load_JSON_into_df():
     # Specify the file path
     file_path = "farmers-protest-tweets-2021-2-4.json"
 
@@ -28,15 +26,23 @@ def find_top_10_most_mentioned_users(file_path: str):
     print(f'Missing rows: {missing_rows}')
     print(f'Invalid rows: {invalid_rows}')
 
-    # Create a DataFrame from the parsed data
-    df = pd.DataFrame(data)
+    return pd.DataFrame(data)
 
+@profile
+def find_top_10_most_mentioned_users(file_path: str):
+
+    
+
+    # Create a DataFrame from the parsed data
+    df = load_JSON_into_df()
 
     # Drop rows with None or NaN values in the "mentionedUsers" column
     # We only want to keep users that were mentioned
     df.dropna(subset=['mentionedUsers'], inplace=True)
 
     df['usernameMentionedList'] = df['mentionedUsers'].apply(lambda user_list: [user['username'] for user in user_list if 'username' in user])
+
+    username_mentioned_plain_string = ' '.join(' '.join(username_list) for username_list in df['usernameMentionedList'])
 
     # Create a dictionary that contains the count of each username
     username_mention_count = {}
