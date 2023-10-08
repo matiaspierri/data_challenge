@@ -3,10 +3,8 @@ import json
 import cProfile
 from memory_profiler import profile
 
-def load_JSON_into_df():
-    # Specify the file path
-    file_path = "farmers-protest-tweets-2021-2-4.json"
-
+def load_JSON_into_df(file_path: str):
+    
     data= []
     invalid_rows= []
 
@@ -34,7 +32,7 @@ def find_top_10_most_mentioned_users(file_path: str):
     
 
     # Create a DataFrame from the parsed data
-    df = load_JSON_into_df()
+    df = load_JSON_into_df(file_path)
 
     # Drop rows with None or NaN values in the "mentionedUsers" column
     # We only want to keep users that were mentioned
