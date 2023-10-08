@@ -33,3 +33,12 @@ df = pd.DataFrame(data)
 df.dropna(subset=['mentionedUsers'], inplace=True)
 
 df['usernameMentionedList'] = df['mentionedUsers'].apply(lambda user_list: [user['username'] for user in user_list if 'username' in user])
+
+# Create a dictionary that contains the count of each username
+username_mention_count = {}
+
+for username in username_mentioned_plain_string.split():
+    if username in username_mention_count:
+        username_mention_count[username] += 1
+    else:
+        username_mention_count[username] = 1
