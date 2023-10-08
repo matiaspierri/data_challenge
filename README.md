@@ -8,7 +8,8 @@ This repository has 3 python scripts. Each of these scripts answers a business q
 
 ## Installation
 
-### Pre requesites
+### Prerequisites
+
 
 Make sure you have the following prerequisites installed on your system:
 - Python 3.9
