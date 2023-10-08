@@ -1,42 +1,22 @@
 import pandas as pd
 import json
 import cProfile
+from aux import load_JSON_into_df
 from memory_profiler import profile
 
 @profile
 def find_top_10_most_mentioned_users(file_path: str):
 
-    # Specify the file path
-    file_path = "farmers-protest-tweets-2021-2-4.json"
-
-    data= []
-    invalid_rows= []
-
-    missing_rows = 0
-
-    # Try to read the JSON file
-    with open(file_path, 'r', encoding='utf-8') as file:
-        # Read and parse each line separately
-        for row in file:
-            try:
-                jsonparse = json.loads(row)
-                data.append(jsonparse)
-            except Exception as e:
-                missing_rows +=1
-                invalid_rows.append(row)
-
-    print(f'Missing rows: {missing_rows}')
-    print(f'Invalid rows: {invalid_rows}')
-
     # Create a DataFrame from the parsed data
-    df = pd.DataFrame(data)
-
+    df = load_JSON_into_df(file_path)
 
     # Drop rows with None or NaN values in the "mentionedUsers" column
     # We only want to keep users that were mentioned
     df.dropna(subset=['mentionedUsers'], inplace=True)
 
     df['usernameMentionedList'] = df['mentionedUsers'].apply(lambda user_list: [user['username'] for user in user_list if 'username' in user])
+
+    username_mentioned_plain_string = ' '.join(' '.join(username_list) for username_list in df['usernameMentionedList'])
 
     # Create a dictionary that contains the count of each username
     username_mention_count = {}
@@ -63,6 +43,6 @@ if __name__ == "__main__":
     profiler.disable()
     
     # Print the profiling results
-    profiler.print_stats(sort='cumulative')
+    #profiler.print_stats(sort='cumulative')
 
     print(top_10_mentioned_users)
