@@ -1,7 +1,7 @@
 import pandas as pd
 import json
+import cProfile
 from memory_profiler import profile
-
 
 @profile
 def find_top_10_tweets_count_dates(file_path: str):
@@ -46,4 +46,15 @@ def find_top_10_tweets_count_dates(file_path: str):
     top_users.groupby('date').max().reset_index().head(10)
 
 if __name__ == "__main__":
+    # Create a cProfile object
+    profiler = cProfile.Profile()
+    
+    # Run the function within the profiler
+    profiler.enable()
     find_top_10_tweets_count_dates("farmers-protest-tweets-2021-2-4.json")
+    profiler.disable()
+    
+    # Print the profiling results
+    profiler.print_stats(sort='cumulative')
+
+    
