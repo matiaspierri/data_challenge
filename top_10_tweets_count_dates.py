@@ -43,7 +43,12 @@ def find_top_10_tweets_count_dates(file_path: str):
     top_users = top_users.sort_values(by=['date', 'record_count'], ascending=[True, False])
 
     # Top 10 dates and username with most tweets by that given date
-    top_users.groupby('date').max().reset_index().head(10)
+    top10_users = top_users.groupby('date').max().reset_index().head(10)
+
+    
+    # Returning result in a tuple
+    return [tuple(row[['date', 'username']]) for _, row in top10_users.iterrows()]
+
 
 if __name__ == "__main__":
     # Create a cProfile object
@@ -51,10 +56,13 @@ if __name__ == "__main__":
     
     # Run the function within the profiler
     profiler.enable()
-    find_top_10_tweets_count_dates("farmers-protest-tweets-2021-2-4.json")
+    top_10_dates = find_top_10_tweets_count_dates("farmers-protest-tweets-2021-2-4.json")
     profiler.disable()
     
     # Print the profiling results
     profiler.print_stats(sort='cumulative')
+
+    print(top_10_dates)
+
 
     
