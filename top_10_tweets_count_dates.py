@@ -38,8 +38,6 @@ if __name__ == "__main__":
     # Create a cProfile object
     profiler = cProfile.Profile()
     
-
-    
     # Run the function within the profiler
     profiler.enable()
     top_10_dates = find_top_10_tweets_count_dates("farmers-protest-tweets-2021-2-4.json")
